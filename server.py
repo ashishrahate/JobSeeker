@@ -58,6 +58,19 @@ def cfg_error():
 
 # ── Routes ────────────────────────────────────────────────────────────────────
 
+@app.get("/")
+def index():
+    return (
+        "<h2>JobSeeker Admin Server is running</h2>"
+        "<p>Do not use this page — open your dashboard at "
+        "<a href='https://ashishrahate.github.io/JobSeeker/' target='_blank'>"
+        "https://ashishrahate.github.io/JobSeeker/</a> instead.</p>"
+        "<p>API endpoints: "
+        "<code>/api/status</code>, <code>/api/fetch</code>, "
+        "<code>/api/archive</code>, <code>/api/purge</code>, <code>/api/mute</code></p>"
+    )
+
+
 @app.get("/api/status")
 def status():
     if not cfg_ok():
