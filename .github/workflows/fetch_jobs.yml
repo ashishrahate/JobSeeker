@@ -1,0 +1,42 @@
+name: Fetch Internship Listings
+
+on:
+  schedule:
+    - cron: "0 */4 * * *"   # Every 4 hours
+  workflow_dispatch:          # Manual trigger from GitHub Actions UI
+
+permissions:
+  contents: write             # Needed to commit jobs.json back to repo
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run fetcher
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python fetcher/main.py
+
+      - name: Commit updated jobs.json
+        run: |
+          git config --global user.name "JobSeeker Bot"
+          git config --global user.email "jobseeker-bot@users.noreply.github.com"
+          git add data/jobs.json
+          git diff --staged --quiet || git commit -m "chore: update job listings [skip ci]"
+          git push

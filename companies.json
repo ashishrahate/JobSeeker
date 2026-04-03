@@ -1,0 +1,87 @@
+{
+  "keywords": {
+    "internship_terms": [
+      "intern", "internship", "co-op", "coop", "summer 2027"
+    ],
+    "roles": {
+      "salesforce": [
+        "salesforce", "apex", "lightning web component", "lwc",
+        "visualforce", "agentforce", "salesforce developer",
+        "salesforce architect", "salesforce engineer", "salesforce admin",
+        "crm developer", "salesforce platform"
+      ],
+      "ai_eng": [
+        "ai engineer", "artificial intelligence engineer",
+        "ml engineer", "machine learning engineer",
+        "llm", "large language model", "generative ai", "gen ai",
+        "nlp engineer", "deep learning engineer", "applied ai",
+        "foundation model", "rag", "ai infrastructure"
+      ],
+      "ds_ml": [
+        "data scientist", "data science",
+        "machine learning", "applied scientist", "research scientist",
+        "ml researcher", "mlops", "ml platform", "ml infrastructure",
+        "computer vision", "natural language processing",
+        "quantitative researcher", "quant researcher",
+        "statistical modeling", "predictive modeling"
+      ]
+    }
+  },
+  "greenhouse": [
+    { "name": "Databricks",       "slug": "databricks",       "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Snowflake",        "slug": "snowflake",        "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Palantir",         "slug": "palantir",         "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Stripe",           "slug": "stripe",           "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Airbnb",           "slug": "airbnb",           "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Uber",             "slug": "uber",             "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Lyft",             "slug": "lyft",             "categories": ["ds_ml"],                      "opt_cpt": true  },
+    { "name": "Snap",             "slug": "snap",             "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Roblox",           "slug": "roblox",           "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Coinbase",         "slug": "coinbase",         "categories": ["ds_ml"],                      "opt_cpt": null  },
+    { "name": "Netflix",          "slug": "netflix",          "categories": ["ds_ml"],                      "opt_cpt": true  },
+    { "name": "Atlassian",        "slug": "atlassian",        "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Spotify",          "slug": "spotify",          "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "CrowdStrike",      "slug": "crowdstrike",      "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Dropbox",          "slug": "dropbox",          "categories": ["ds_ml"],                      "opt_cpt": true  },
+    { "name": "Datadog",          "slug": "datadoghq",        "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Confluent",        "slug": "confluent",        "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Plaid",            "slug": "plaid",            "categories": ["ds_ml"],                      "opt_cpt": true  },
+    { "name": "Robinhood",        "slug": "robinhood",        "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Zendesk",          "slug": "zendesk",          "categories": ["ds_ml", "salesforce"],        "opt_cpt": true  },
+    { "name": "HubSpot",          "slug": "hubspot",          "categories": ["ds_ml", "salesforce"],        "opt_cpt": true  },
+    { "name": "nCino",            "slug": "ncino",            "categories": ["salesforce"],                 "opt_cpt": true  },
+    { "name": "Veeva Systems",    "slug": "veeva",            "categories": ["salesforce", "ds_ml"],        "opt_cpt": true  },
+    { "name": "Flatiron Health",  "slug": "flatironhealth",   "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Tempus AI",        "slug": "tempus",           "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Komodo Health",    "slug": "komodohealth",     "categories": ["ds_ml"],                      "opt_cpt": null  },
+    { "name": "OpenAI",           "slug": "openai",           "categories": ["ai_eng", "ds_ml"],            "opt_cpt": null  },
+    { "name": "Anthropic",        "slug": "anthropic",        "categories": ["ai_eng", "ds_ml"],            "opt_cpt": false },
+    { "name": "NVIDIA",           "slug": "nvidia",           "categories": ["ai_eng", "ds_ml"],            "opt_cpt": true  },
+    { "name": "Scale AI",         "slug": "scaleai",          "categories": ["ai_eng", "ds_ml"],            "opt_cpt": true  },
+    { "name": "BlackRock",        "slug": "blackrock",        "categories": ["ds_ml", "ai_eng"],            "opt_cpt": null  },
+    { "name": "Citadel",          "slug": "citadel",          "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Two Sigma",        "slug": "twosigma",         "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "D.E. Shaw",        "slug": "deshaw",           "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Point72",          "slug": "point72",          "categories": ["ds_ml"],                      "opt_cpt": true  },
+    { "name": "McKinsey",         "slug": "mckinsey",         "categories": ["ds_ml", "ai_eng"],            "opt_cpt": null  },
+    { "name": "BCG",              "slug": "bcg",              "categories": ["ds_ml", "ai_eng"],            "opt_cpt": null  },
+    { "name": "Bain",             "slug": "bain",             "categories": ["ds_ml"],                      "opt_cpt": null  },
+    { "name": "Tesla",            "slug": "tesla",            "categories": ["ai_eng", "ds_ml"],            "opt_cpt": true  },
+    { "name": "SpaceX",           "slug": "spacex",           "categories": ["ai_eng", "ds_ml"],            "opt_cpt": null  },
+    { "name": "Wayfair",          "slug": "wayfair",          "categories": ["ds_ml"],                      "opt_cpt": true  },
+    { "name": "Twilio",           "slug": "twilio",           "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "DataRobot",        "slug": "datarobot",        "categories": ["ds_ml", "ai_eng"],            "opt_cpt": null  },
+    { "name": "Salesforce",       "slug": "salesforce",       "categories": ["salesforce", "ai_eng", "ds_ml"], "opt_cpt": true },
+    { "name": "ServiceNow",       "slug": "servicenow",       "categories": ["salesforce", "ai_eng"],       "opt_cpt": null  },
+    { "name": "Palo Alto Networks","slug": "paloaltonetworks", "categories": ["ai_eng", "ds_ml"],           "opt_cpt": true  },
+    { "name": "Workday",          "slug": "workday",          "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  }
+  ],
+  "lever": [
+    { "name": "Cohere",           "slug": "cohere",           "categories": ["ai_eng", "ds_ml"],            "opt_cpt": null  },
+    { "name": "Hugging Face",     "slug": "huggingface",      "categories": ["ai_eng", "ds_ml"],            "opt_cpt": null  },
+    { "name": "Mistral AI",       "slug": "mistral",          "categories": ["ai_eng", "ds_ml"],            "opt_cpt": null  },
+    { "name": "Figma",            "slug": "figma",            "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Notion",           "slug": "notion",           "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  },
+    { "name": "Airtable",         "slug": "airtable",         "categories": ["ds_ml", "ai_eng"],            "opt_cpt": true  }
+  ]
+}
