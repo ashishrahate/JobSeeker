@@ -2,7 +2,7 @@ name: Fetch Internship Listings
 
 on:
   schedule:
-    - cron: "0 * * * *"   # Every 1 hour
+    #- cron: "0 * * * *"   # Every 1 hour
   workflow_dispatch:          # Manual trigger from GitHub Actions UI
 
 permissions:
