@@ -1,4 +1,7 @@
+# Fetcher (used by GitHub Actions + locally)
 requests==2.32.3
 python-dotenv==1.0.1
-streamlit==1.41.1
-pandas==2.2.3
+
+# Local admin server (server.py — not needed by GitHub Actions)
+flask==3.1.0
+flask-cors==5.0.0

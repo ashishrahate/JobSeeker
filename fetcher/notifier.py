@@ -1,7 +1,14 @@
 import os
+from pathlib import Path
+
 import requests
 
 TELEGRAM_API = "https://api.telegram.org/bot{token}/sendMessage"
+MUTE_FLAG    = Path(__file__).parent.parent / "data" / "mute.flag"
+
+
+def is_muted() -> bool:
+    return MUTE_FLAG.exists()
 
 CATEGORY_LABEL = {
     "salesforce": "Salesforce Dev/Arch",
@@ -17,6 +24,10 @@ OPT_LABEL = {
 
 
 def send(job: dict) -> None:
+    if is_muted():
+        print(f"[notifier] Muted — skipping notification for: {job['title']} @ {job['company_name']}")
+        return
+
     token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
 
@@ -54,6 +65,9 @@ def send(job: dict) -> None:
 
 def send_summary(added: list[dict]) -> None:
     """Send a single summary message if many jobs were found at once."""
+    if is_muted():
+        return
+
     token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
 

@@ -221,6 +221,110 @@
       display: none;
     }
 
+    /* ── Server badge ── */
+    .server-badge {
+      font-size: 0.73rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .server-badge.online  { background: #dcfce7; color: #16a34a; }
+    .server-badge.offline { background: #f1f5f9; color: #94a3b8; }
+
+    /* ── Admin panel ── */
+    .admin-panel {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-left: 3px solid #4a9eff;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .admin-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 20px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      font-weight: 600;
+      font-size: 0.83rem;
+      color: #1a1a2e;
+    }
+    .admin-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.75rem;
+      color: #64748b;
+      padding: 2px 6px;
+    }
+    .admin-body { padding: 16px 20px; }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .admin-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .admin-card-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .admin-stats-row { display: flex; gap: 20px; }
+    .admin-stat-val   { display: block; font-size: 1.5rem; font-weight: 700; color: #1a1a2e; line-height: 1.1; }
+    .admin-stat-lbl   { font-size: 0.68rem; color: #94a3b8; }
+    .admin-desc { font-size: 0.8rem; color: #64748b; margin-bottom: 10px; line-height: 1.4; }
+    .admin-row  { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 0.83rem; color: #475569; }
+    .admin-row input[type="number"] {
+      width: 65px;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 4px 8px;
+      font-size: 0.83rem;
+      background: #fff;
+      outline: none;
+    }
+    .admin-row input:focus { border-color: #4a9eff; }
+    .admin-preview { font-size: 0.75rem; color: #f59e0b; margin-bottom: 8px; min-height: 16px; font-weight: 500; }
+    .admin-msg {
+      font-size: 0.75rem;
+      margin-top: 7px;
+      display: none;
+      font-weight: 500;
+    }
+    .mute-status { font-weight: 600; font-size: 0.85rem; margin-bottom: 10px; }
+    .admin-btn {
+      border: none;
+      border-radius: 6px;
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .admin-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-primary { background: #4a9eff; color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: #1a7aee; }
+    .btn-warn    { background: #f59e0b; color: #fff; }
+    .btn-warn:hover:not(:disabled)    { background: #d97706; }
+    .btn-danger  { background: #ef4444; color: #fff; }
+    .btn-danger:hover:not(:disabled)  { background: #dc2626; }
+    .btn-success { background: #22c55e; color: #fff; }
+    .btn-success:hover:not(:disabled) { background: #16a34a; }
+
+    @media (max-width: 900px) { .admin-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .admin-grid { grid-template-columns: 1fr; } }
+
     /* ── Responsive ── */
     @media (max-width: 900px) {
       .stats { grid-template-columns: repeat(3, 1fr); }
@@ -236,7 +340,10 @@
 
 <header>
   <h1>🎯 <span>JobSeeker</span> — Internship Tracker</h1>
-  <span id="last-updated">Loading…</span>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span id="last-updated"></span>
+    <span id="server-badge" class="server-badge offline">○ Admin offline</span>
+  </div>
 </header>
 
 <main>
@@ -338,6 +445,72 @@
     </div>
 
     <button id="refresh-btn">↻ Refresh</button>
+  </div>
+
+  <!-- Admin panel (visible only when local server is running) -->
+  <div class="admin-panel" id="admin-panel" style="display:none">
+    <div class="admin-head">
+      <span>⚡ Admin Panel</span>
+      <button class="admin-toggle" id="admin-toggle-btn">▲ Collapse</button>
+    </div>
+    <div class="admin-body" id="admin-body">
+      <div class="admin-grid">
+
+        <!-- DB Stats -->
+        <div class="admin-card">
+          <div class="admin-card-title">Database</div>
+          <div class="admin-stats-row">
+            <div><span class="admin-stat-val" id="astat-active">—</span><span class="admin-stat-lbl">Active</span></div>
+            <div><span class="admin-stat-val" id="astat-archived">—</span><span class="admin-stat-lbl">Archived</span></div>
+            <div><span class="admin-stat-val" id="astat-total">—</span><span class="admin-stat-lbl">Total</span></div>
+          </div>
+        </div>
+
+        <!-- Fetch Now -->
+        <div class="admin-card">
+          <div class="admin-card-title">Fetch Jobs</div>
+          <p class="admin-desc">Trigger a fresh scan of all Greenhouse + Lever companies right now.</p>
+          <button class="admin-btn btn-primary" id="btn-fetch">Fetch Now</button>
+          <div class="admin-msg" id="msg-fetch"></div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="admin-card">
+          <div class="admin-card-title">Telegram Notifications</div>
+          <div class="mute-status" id="mute-status">—</div>
+          <button class="admin-btn btn-warn" id="btn-mute">Mute</button>
+          <div class="admin-msg" id="msg-mute"></div>
+        </div>
+
+      </div>
+
+      <!-- Archive + Purge row -->
+      <div class="admin-grid" style="margin-top:12px">
+
+        <div class="admin-card">
+          <div class="admin-card-title">Archive Old Jobs</div>
+          <div class="admin-row">
+            <span>Archive jobs older than</span>
+            <input type="number" id="archive-days" value="60" min="1" max="365" />
+            <span>days</span>
+          </div>
+          <div class="admin-preview" id="archive-preview"></div>
+          <button class="admin-btn btn-warn" id="btn-archive">Archive</button>
+          <div class="admin-msg" id="msg-archive"></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">Purge Archived</div>
+          <p class="admin-desc">Permanently delete all archived jobs from the database. Cannot be undone.</p>
+          <div style="font-size:0.8rem;color:#64748b;margin-bottom:10px">
+            Archived: <strong id="purge-count">—</strong> jobs
+          </div>
+          <button class="admin-btn btn-danger" id="btn-purge">Purge All</button>
+          <div class="admin-msg" id="msg-purge"></div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
   <!-- Results count -->
@@ -664,6 +837,152 @@
 
   // ── Auto-refresh every 5 minutes ──────────────────────────────────────────
   setInterval(loadJobs, 5 * 60 * 1000);
+
+  // ── Admin / Server ────────────────────────────────────────────────────────
+  const SERVER = "http://localhost:5000";
+  let serverData = {};
+
+  async function checkServer() {
+    try {
+      const res = await fetch(SERVER + "/api/status",
+        { signal: AbortSignal.timeout(2000) });
+      if (!res.ok) throw new Error();
+      serverData = await res.json();
+      showAdminPanel(true);
+    } catch {
+      showAdminPanel(false);
+    }
+  }
+
+  function showAdminPanel(online) {
+    const badge = document.getElementById("server-badge");
+    const panel = document.getElementById("admin-panel");
+    if (online) {
+      badge.textContent = "⚡ Admin connected";
+      badge.className = "server-badge online";
+      panel.style.display = "block";
+      const db = serverData.db || {};
+      document.getElementById("astat-active").textContent   = db.active   ?? "—";
+      document.getElementById("astat-archived").textContent = db.archived ?? "—";
+      document.getElementById("astat-total").textContent    = db.total    ?? "—";
+      document.getElementById("purge-count").textContent    = db.archived ?? "—";
+      updateMuteUI(serverData.muted);
+      updateArchivePreview();
+    } else {
+      badge.textContent = "○ Admin offline";
+      badge.className = "server-badge offline";
+      panel.style.display = "none";
+    }
+  }
+
+  // Archive preview — calculated client-side from loaded jobs
+  function updateArchivePreview() {
+    const days = parseInt(document.getElementById("archive-days").value, 10);
+    if (isNaN(days) || days < 1) return;
+    const cutoff = Date.now() - days * 86400 * 1000;
+    const count = allJobs.filter(
+      j => !j.archived && new Date(j.discovered_at).getTime() < cutoff
+    ).length;
+    document.getElementById("archive-preview").textContent =
+      count > 0 ? `~${count} job${count !== 1 ? "s" : ""} will be archived` : "No jobs match this threshold";
+  }
+
+  function updateMuteUI(muted) {
+    const btn    = document.getElementById("btn-mute");
+    const status = document.getElementById("mute-status");
+    if (muted) {
+      status.textContent = "🔕 Muted"; status.style.color = "#ef4444";
+      btn.textContent = "Unmute"; btn.className = "admin-btn btn-success";
+    } else {
+      status.textContent = "🔔 Active"; status.style.color = "#16a34a";
+      btn.textContent = "Mute"; btn.className = "admin-btn btn-warn";
+    }
+  }
+
+  function showMsg(id, text, ok) {
+    const el = document.getElementById(id);
+    el.textContent = text;
+    el.style.color = ok ? "#16a34a" : "#ef4444";
+    el.style.display = "block";
+    setTimeout(() => { el.style.display = "none"; }, 5000);
+  }
+
+  async function adminPost(endpoint, body = null) {
+    const opts = { method: "POST" };
+    if (body) { opts.headers = {"Content-Type": "application/json"}; opts.body = JSON.stringify(body); }
+    const res = await fetch(SERVER + endpoint, opts);
+    return res.json();
+  }
+
+  // Fetch Now
+  document.getElementById("btn-fetch").addEventListener("click", async () => {
+    const btn = document.getElementById("btn-fetch");
+    btn.disabled = true; btn.textContent = "Triggering…";
+    try {
+      const d = await adminPost("/api/fetch");
+      showMsg("msg-fetch", d.message || d.error, !d.error);
+    } catch { showMsg("msg-fetch", "Server unreachable", false); }
+    btn.disabled = false; btn.textContent = "Fetch Now";
+  });
+
+  // Archive
+  document.getElementById("btn-archive").addEventListener("click", async () => {
+    const days = parseInt(document.getElementById("archive-days").value, 10);
+    if (!days || days < 1) return showMsg("msg-archive", "Enter a valid number of days", false);
+    const btn = document.getElementById("btn-archive");
+    btn.disabled = true; btn.textContent = "Archiving…";
+    try {
+      const d = await adminPost("/api/archive", { days });
+      showMsg("msg-archive", d.message || d.error, !d.error);
+      if (!d.error) setTimeout(checkServer, 3000);
+    } catch { showMsg("msg-archive", "Server unreachable", false); }
+    btn.disabled = false; btn.textContent = "Archive";
+  });
+
+  // Purge
+  document.getElementById("btn-purge").addEventListener("click", async () => {
+    const count = serverData.db?.archived ?? 0;
+    if (count === 0) return showMsg("msg-purge", "No archived jobs to purge", false);
+    if (!confirm(`Permanently delete ${count} archived job(s)? This cannot be undone.`)) return;
+    const btn = document.getElementById("btn-purge");
+    btn.disabled = true; btn.textContent = "Purging…";
+    try {
+      const d = await adminPost("/api/purge");
+      showMsg("msg-purge", d.message || d.error, !d.error);
+      if (!d.error) setTimeout(checkServer, 3000);
+    } catch { showMsg("msg-purge", "Server unreachable", false); }
+    btn.disabled = false; btn.textContent = "Purge All";
+  });
+
+  // Mute toggle
+  document.getElementById("btn-mute").addEventListener("click", async () => {
+    const muted = serverData.muted;
+    const btn = document.getElementById("btn-mute");
+    btn.disabled = true;
+    try {
+      const res = await fetch(SERVER + "/api/mute", { method: muted ? "DELETE" : "POST" });
+      const d = await res.json();
+      if (!d.error) { serverData.muted = d.muted; updateMuteUI(d.muted); }
+      showMsg("msg-mute", d.error || (d.muted ? "Notifications muted" : "Notifications enabled"), !d.error);
+    } catch { showMsg("msg-mute", "Server unreachable", false); }
+    btn.disabled = false;
+  });
+
+  // Archive days input live preview
+  document.getElementById("archive-days").addEventListener("input", updateArchivePreview);
+
+  // Admin panel collapse/expand
+  document.getElementById("admin-toggle-btn").addEventListener("click", () => {
+    const body = document.getElementById("admin-body");
+    const btn  = document.getElementById("admin-toggle-btn");
+    const collapsed = body.style.display === "none";
+    body.style.display = collapsed ? "block" : "none";
+    btn.textContent = collapsed ? "▲ Collapse" : "▼ Expand";
+  });
+
+  // Check server on load and every 30s
+  checkServer();
+  setInterval(checkServer, 30000);
 
   // ── Init ──────────────────────────────────────────────────────────────────
   loadJobs();
