@@ -81,7 +81,7 @@
     .filters select:focus { border-color: #4a9eff; background: #fff; }
     #search { width: 220px; }
 
-    /* Category toggle buttons */
+    /* Toggle buttons (category + remote) */
     .cat-buttons { display: flex; gap: 6px; }
     .cat-btn {
       border: 1.5px solid #e2e8f0;
@@ -94,9 +94,10 @@
       font-weight: 500;
       transition: all 0.15s;
     }
-    .cat-btn.active-sf  { background: #dbeafe; border-color: #0070D2; color: #0070D2; }
-    .cat-btn.active-ai  { background: #f3e8ff; border-color: #9B59B6; color: #9B59B6; }
-    .cat-btn.active-ml  { background: #dcfce7; border-color: #27AE60; color: #27AE60; }
+    .cat-btn.active-sf     { background: #dbeafe; border-color: #0070D2; color: #0070D2; }
+    .cat-btn.active-ai     { background: #f3e8ff; border-color: #9B59B6; color: #9B59B6; }
+    .cat-btn.active-ml     { background: #dcfce7; border-color: #27AE60; color: #27AE60; }
+    .cat-btn.active-remote { background: #fef9c3; border-color: #ca8a04; color: #ca8a04; }
 
     /* Refresh button */
     #refresh-btn {
@@ -294,6 +295,27 @@
     </div>
 
     <div class="filter-group">
+      <label>State</label>
+      <select id="filter-state">
+        <option value="">All states</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>City</label>
+      <select id="filter-city">
+        <option value="">All cities</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Remote</label>
+      <div class="cat-buttons">
+        <button class="cat-btn" id="remote-btn">Remote only</button>
+      </div>
+    </div>
+
+    <div class="filter-group">
       <label>Discovered</label>
       <select id="filter-date">
         <option value="0">All time</option>
@@ -326,6 +348,7 @@
   // ── State ─────────────────────────────────────────────────────────────────
   let allJobs = [];
   let activeCats = new Set(["salesforce", "ai_eng", "ds_ml"]);
+  let remoteOnly = false;
   let sortCol = "discovered_at";
   let sortAsc = false;
 
@@ -367,6 +390,23 @@
     return String(str || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   }
 
+  // ── Location parsing ──────────────────────────────────────────────────────
+  // Handles formats like "San Francisco, CA", "Austin, TX, US", "Remote", "Remote - US"
+  function parseLocation(loc) {
+    if (!loc) return { city: "", state: "", isRemote: false };
+    const isRemote = /remote/i.test(loc);
+    const parts = loc.split(",").map(s => s.trim());
+    const city = parts[0] || "";
+    // Find a 2-letter all-caps token (US state code)
+    const stateMatch = loc.match(/\b([A-Z]{2})\b/g);
+    // Exclude common non-state tokens like "US"
+    const NON_STATE = new Set(["US", "UK", "CA", "DC"]);
+    // Actually CA is a valid state — keep all 2-letter codes except "US" and "UK"
+    const EXCLUDE = new Set(["US", "UK"]);
+    const state = stateMatch ? (stateMatch.find(s => !EXCLUDE.has(s)) || "") : "";
+    return { city, state, isRemote };
+  }
+
   // ── Load data ─────────────────────────────────────────────────────────────
   async function loadJobs() {
     document.getElementById("loading").style.display = "block";
@@ -394,6 +434,21 @@
         sel.appendChild(o);
       });
 
+      // Populate state + city dropdowns from location data
+      const parsed = allJobs.map(j => parseLocation(j.location));
+      const states = [...new Set(parsed.map(p => p.state).filter(Boolean))].sort();
+      const stateSel = document.getElementById("filter-state");
+      const curState = stateSel.value;
+      stateSel.innerHTML = '<option value="">All states</option>';
+      states.forEach(s => {
+        const o = document.createElement("option");
+        o.value = s; o.textContent = s;
+        stateSel.appendChild(o);
+      });
+      if (curState) stateSel.value = curState;
+
+      populateCities();
+
       updateStats(allJobs);
       render();
     } catch (e) {
@@ -403,6 +458,28 @@
       err.textContent = "Could not load jobs.json: " + e.message +
         " — Make sure GitHub Pages is enabled and the repo is pushed.";
     }
+  }
+
+  // ── City dropdown (filtered by selected state) ────────────────────────────
+  function populateCities() {
+    const selectedState = document.getElementById("filter-state").value;
+    const citySel = document.getElementById("filter-city");
+    const curCity = citySel.value;
+
+    const cities = [...new Set(
+      allJobs
+        .map(j => parseLocation(j.location))
+        .filter(p => p.city && !p.isRemote && (!selectedState || p.state === selectedState))
+        .map(p => p.city)
+    )].sort();
+
+    citySel.innerHTML = '<option value="">All cities</option>';
+    cities.forEach(c => {
+      const o = document.createElement("option");
+      o.value = c; o.textContent = c;
+      citySel.appendChild(o);
+    });
+    if (curCity && cities.includes(curCity)) citySel.value = curCity;
   }
 
   // ── Stats ─────────────────────────────────────────────────────────────────
@@ -423,6 +500,8 @@
     const opt     = document.getElementById("filter-opt").value;
     const days    = parseInt(document.getElementById("filter-date").value, 10);
     const cutoff  = days > 0 ? Date.now() - days * 86400 * 1000 : 0;
+    const state   = document.getElementById("filter-state").value;
+    const city    = document.getElementById("filter-city").value;
 
     return allJobs.filter(j => {
       if (!activeCats.has(j.role_category)) return false;
@@ -433,6 +512,10 @@
         const haystack = [j.title, j.company_name, ...(j.keywords_matched || [])].join(" ").toLowerCase();
         if (!haystack.includes(search)) return false;
       }
+      const loc = parseLocation(j.location);
+      if (remoteOnly && !loc.isRemote) return false;
+      if (state && loc.state !== state) return false;
+      if (city && loc.city !== city) return false;
       return true;
     });
   }
@@ -526,6 +609,19 @@
   document.getElementById("filter-opt").addEventListener("change", render);
   document.getElementById("filter-date").addEventListener("change", render);
   document.getElementById("refresh-btn").addEventListener("click", loadJobs);
+
+  document.getElementById("filter-state").addEventListener("change", () => {
+    populateCities();  // narrow city list to match selected state
+    render();
+  });
+  document.getElementById("filter-city").addEventListener("change", render);
+
+  document.getElementById("remote-btn").addEventListener("click", () => {
+    remoteOnly = !remoteOnly;
+    document.getElementById("remote-btn").className =
+      remoteOnly ? "cat-btn active-remote" : "cat-btn";
+    render();
+  });
 
   // Category toggle buttons
   document.querySelectorAll(".cat-btn").forEach(btn => {
