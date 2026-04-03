@@ -28,6 +28,25 @@ load_dotenv(Path(__file__).parent / ".env")
 app = Flask(__name__)
 CORS(app)  # allow all origins — server is local-only, no security risk
 
+
+@app.after_request
+def allow_private_network(response):
+    """Chrome blocks HTTPS → localhost without this header."""
+    response.headers["Access-Control-Allow-Private-Network"] = "true"
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
+@app.route("/api/<path:path>", methods=["OPTIONS"])
+def handle_preflight(path):
+    """Handle Chrome's preflight check for private network access."""
+    resp = app.make_default_options_response()
+    resp.headers["Access-Control-Allow-Private-Network"] = "true"
+    resp.headers["Access-Control-Allow-Origin"] = "*"
+    resp.headers["Access-Control-Allow-Methods"] = "GET, POST, DELETE, OPTIONS"
+    resp.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    return resp
+
 # ── Config ────────────────────────────────────────────────────────────────────
 
 TOKEN = os.environ.get("GITHUB_TOKEN")
