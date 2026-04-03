@@ -1,5 +1,258 @@
 {
-  "jobs": [],
-  "last_updated": null,
-  "total_count": 0
+  "jobs": [
+    {
+      "id": "greenhouse_7011263002",
+      "source_id": "7011263002",
+      "ats": "greenhouse",
+      "company_name": "Databricks",
+      "company_slug": "databricks",
+      "title": "PhD GenAI Research Scientist Intern",
+      "location": "San Francisco, California",
+      "department": "",
+      "url": "https://databricks.com/company/careers/open-positions/job?gh_jid=7011263002",
+      "posted_at": "2026-02-19T14:47:26-05:00",
+      "discovered_at": "2026-04-03T11:30:10.177259+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "research scientist"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "greenhouse_7285974",
+      "source_id": "7285974",
+      "ats": "greenhouse",
+      "company_name": "Stripe",
+      "company_slug": "stripe",
+      "title": "PhD Data Scientist, Intern",
+      "location": "Toronto, Ontario, Canada",
+      "department": "",
+      "url": "https://stripe.com/jobs/search?gh_jid=7285974",
+      "posted_at": "2026-04-01T11:46:05-04:00",
+      "discovered_at": "2026-04-03T11:30:10.468549+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "data scientist"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "greenhouse_7216664",
+      "source_id": "7216664",
+      "ats": "greenhouse",
+      "company_name": "Stripe",
+      "company_slug": "stripe",
+      "title": "PhD Machine Learning Engineer, Intern",
+      "location": "San Francisco, New York City, Seattle",
+      "department": "",
+      "url": "https://stripe.com/jobs/search?gh_jid=7216664",
+      "posted_at": "2026-04-01T11:46:05-04:00",
+      "discovered_at": "2026-04-03T11:30:10.468573+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "machine learning"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "greenhouse_7669906",
+      "source_id": "7669906",
+      "ats": "greenhouse",
+      "company_name": "Airbnb",
+      "company_slug": "airbnb",
+      "title": "Machine Learning Engineering Intern (PhD)",
+      "location": "United States",
+      "department": "",
+      "url": "https://careers.airbnb.com/positions/7669906?gh_jid=7669906",
+      "posted_at": "2026-03-02T14:56:10-05:00",
+      "discovered_at": "2026-04-03T11:30:10.569580+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "machine learning"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "greenhouse_7142298",
+      "source_id": "7142298",
+      "ats": "greenhouse",
+      "company_name": "Roblox",
+      "company_slug": "roblox",
+      "title": "[2026] Applied Scientist - PhD Intern",
+      "location": "San Mateo, CA, United States",
+      "department": "",
+      "url": "https://careers.roblox.com/jobs/7142298?gh_jid=7142298",
+      "posted_at": "2026-03-11T17:26:46-04:00",
+      "discovered_at": "2026-04-03T11:30:10.970902+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "applied scientist"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "greenhouse_7540083",
+      "source_id": "7540083",
+      "ats": "greenhouse",
+      "company_name": "Roblox",
+      "company_slug": "roblox",
+      "title": "[2026] Data Scientist - PhD Intern (Short Term)",
+      "location": "San Mateo, CA, United States",
+      "department": "",
+      "url": "https://careers.roblox.com/jobs/7540083?gh_jid=7540083",
+      "posted_at": "2026-02-19T19:20:40-05:00",
+      "discovered_at": "2026-04-03T11:30:10.970924+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "data scientist"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "greenhouse_7755263",
+      "source_id": "7755263",
+      "ats": "greenhouse",
+      "company_name": "Roblox",
+      "company_slug": "roblox",
+      "title": "[2026] Machine Learning Engineer, Recommendation Systems - PhD Intern",
+      "location": "San Mateo, CA, United States",
+      "department": "",
+      "url": "https://careers.roblox.com/jobs/7755263?gh_jid=7755263",
+      "posted_at": "2026-03-27T17:26:48-04:00",
+      "discovered_at": "2026-04-03T11:30:10.970931+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "machine learning"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "greenhouse_7297598002",
+      "source_id": "7297598002",
+      "ats": "greenhouse",
+      "company_name": "Point72",
+      "company_slug": "point72",
+      "title": "Cubist Quantitative Researcher Intern",
+      "location": "Singapore",
+      "department": "",
+      "url": "https://boards.greenhouse.io/point72/jobs/7297598002?gh_jid=7297598002",
+      "posted_at": "2026-03-31T22:26:13-04:00",
+      "discovered_at": "2026-04-03T11:30:13.501064+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "quantitative researcher"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "greenhouse_7297611002",
+      "source_id": "7297611002",
+      "ats": "greenhouse",
+      "company_name": "Point72",
+      "company_slug": "point72",
+      "title": "Cubist Quantitative Researcher Intern",
+      "location": "Hong Kong",
+      "department": "",
+      "url": "https://boards.greenhouse.io/point72/jobs/7297611002?gh_jid=7297611002",
+      "posted_at": "2026-03-31T22:26:13-04:00",
+      "discovered_at": "2026-04-03T11:30:13.501079+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "quantitative researcher"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "greenhouse_7302611002",
+      "source_id": "7302611002",
+      "ats": "greenhouse",
+      "company_name": "Point72",
+      "company_slug": "point72",
+      "title": "Machine Learning Researcher - Intern",
+      "location": "New York",
+      "department": "",
+      "url": "https://boards.greenhouse.io/point72/jobs/7302611002?gh_jid=7302611002",
+      "posted_at": "2026-03-31T22:26:13-04:00",
+      "discovered_at": "2026-04-03T11:30:13.501169+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "machine learning"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "greenhouse_8486835002",
+      "source_id": "8486835002",
+      "ats": "greenhouse",
+      "company_name": "Point72",
+      "company_slug": "point72",
+      "title": "Quantitative Researcher Intern",
+      "location": "Singapore",
+      "department": "",
+      "url": "https://boards.greenhouse.io/point72/jobs/8486835002?gh_jid=8486835002",
+      "posted_at": "2026-03-31T22:26:13-04:00",
+      "discovered_at": "2026-04-03T11:30:13.501225+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "quantitative researcher"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "greenhouse_7586061002",
+      "source_id": "7586061002",
+      "ats": "greenhouse",
+      "company_name": "Point72",
+      "company_slug": "point72",
+      "title": "Quantitative Researcher Intern",
+      "location": "New York",
+      "department": "",
+      "url": "https://boards.greenhouse.io/point72/jobs/7586061002?gh_jid=7586061002",
+      "posted_at": "2026-03-31T22:26:13-04:00",
+      "discovered_at": "2026-04-03T11:30:13.501230+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "quantitative researcher"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "greenhouse_7297657002",
+      "source_id": "7297657002",
+      "ats": "greenhouse",
+      "company_name": "Point72",
+      "company_slug": "point72",
+      "title": "Quantitative Researcher - Intern",
+      "location": "London, Paris, Hong Kong, Tokyo",
+      "department": "",
+      "url": "https://boards.greenhouse.io/point72/jobs/7297657002?gh_jid=7297657002",
+      "posted_at": "2026-03-31T22:26:13-04:00",
+      "discovered_at": "2026-04-03T11:30:13.501235+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "quantitative researcher"
+      ],
+      "opt_cpt": true
+    },
+    {
+      "id": "lever_426ef8c0-eb26-4004-a690-f33c62b445a7",
+      "source_id": "426ef8c0-eb26-4004-a690-f33c62b445a7",
+      "ats": "lever",
+      "company_name": "Mistral AI",
+      "company_slug": "mistral",
+      "title": "Applied Scientist / Research Engineer (Internship)",
+      "location": "Paris",
+      "department": "Solutions",
+      "url": "https://jobs.lever.co/mistral/426ef8c0-eb26-4004-a690-f33c62b445a7",
+      "posted_at": "2025-05-09T15:07:49.118000+00:00",
+      "discovered_at": "2026-04-03T11:30:17.018328+00:00",
+      "role_category": "ds_ml",
+      "keywords_matched": [
+        "applied scientist"
+      ],
+      "opt_cpt": null
+    }
+  ],
+  "last_updated": "2026-04-03T11:30:22.073671+00:00",
+  "total_count": 14
 }
