@@ -97,7 +97,8 @@
     .cat-btn.active-sf     { background: #dbeafe; border-color: #0070D2; color: #0070D2; }
     .cat-btn.active-ai     { background: #f3e8ff; border-color: #9B59B6; color: #9B59B6; }
     .cat-btn.active-ml     { background: #dcfce7; border-color: #27AE60; color: #27AE60; }
-    .cat-btn.active-remote { background: #fef9c3; border-color: #ca8a04; color: #ca8a04; }
+    .cat-btn.active-remote   { background: #fef9c3; border-color: #ca8a04; color: #ca8a04; }
+    .cat-btn.active-archived { background: #f1f5f9; border-color: #94a3b8; color: #475569; }
 
     /* Refresh button */
     #refresh-btn {
@@ -187,6 +188,10 @@
 
     /* Keywords */
     .keywords { color: #64748b; font-size: 0.78rem; max-width: 160px; }
+
+    /* Archived row styling */
+    tr.archived-row td { opacity: 0.45; }
+    .badge-archived { background: #f1f5f9; color: #94a3b8; }
 
     /* Empty state */
     .empty {
@@ -325,6 +330,13 @@
       </select>
     </div>
 
+    <div class="filter-group">
+      <label>Archived</label>
+      <div class="cat-buttons">
+        <button class="cat-btn" id="archived-btn">Show archived</button>
+      </div>
+    </div>
+
     <button id="refresh-btn">↻ Refresh</button>
   </div>
 
@@ -348,7 +360,8 @@
   // ── State ─────────────────────────────────────────────────────────────────
   let allJobs = [];
   let activeCats = new Set(["salesforce", "ai_eng", "ds_ml"]);
-  let remoteOnly = false;
+  let remoteOnly    = false;
+  let showArchived  = false;
   let sortCol = "discovered_at";
   let sortAsc = false;
 
@@ -512,6 +525,7 @@
         const haystack = [j.title, j.company_name, ...(j.keywords_matched || [])].join(" ").toLowerCase();
         if (!haystack.includes(search)) return false;
       }
+      if (!showArchived && j.archived) return false;
       const loc = parseLocation(j.location);
       if (remoteOnly && !loc.isRemote) return false;
       if (state && loc.state !== state) return false;
@@ -577,9 +591,12 @@
       const kwds   = Array.isArray(j.keywords_matched) ? j.keywords_matched.join(", ") : (j.keywords_matched || "");
       const apply  = j.url ? `<a class="apply-link" href="${esc(j.url)}" target="_blank" rel="noopener">Apply →</a>` : "—";
 
-      return `<tr>
+      const archivedBadge = j.archived
+        ? ` <span class="badge badge-archived">archived</span>` : "";
+
+      return `<tr class="${j.archived ? 'archived-row' : ''}">
         <td><strong>${esc(j.company_name)}</strong></td>
-        <td>${esc(j.title)}</td>
+        <td>${esc(j.title)}${archivedBadge}</td>
         <td>${badge}</td>
         <td>${esc(j.location || "—")}</td>
         <td>${fmtDate(j.posted_at)}</td>
@@ -620,6 +637,13 @@
     remoteOnly = !remoteOnly;
     document.getElementById("remote-btn").className =
       remoteOnly ? "cat-btn active-remote" : "cat-btn";
+    render();
+  });
+
+  document.getElementById("archived-btn").addEventListener("click", () => {
+    showArchived = !showArchived;
+    document.getElementById("archived-btn").className =
+      showArchived ? "cat-btn active-archived" : "cat-btn";
     render();
   });
 
